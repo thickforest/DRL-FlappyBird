@@ -50,7 +50,8 @@ class BrainDQN:
 		# saving and loading networks
 		self.saver = tf.train.Saver()
 		self.session = tf.InteractiveSession()
-		self.session.run(tf.initialize_all_variables())
+		#self.session.run(tf.initialize_all_variables())
+		self.session.run(tf.global_variables_initializer())
 		checkpoint = tf.train.get_checkpoint_state("saved_networks")
 		if checkpoint and checkpoint.model_checkpoint_path:
 				self.saver.restore(self.session, checkpoint.model_checkpoint_path)
@@ -160,8 +161,7 @@ class BrainDQN:
 		else:
 			state = "train"
 
-		print ("TIMESTEP", self.timeStep, "/ STATE", state, \
-            "/ EPSILON", self.epsilon)
+		# print ("TIMESTEP", self.timeStep, "/ STATE", state, "/ EPSILON", self.epsilon)
 
 		self.currentState = newState
 		self.timeStep += 1

@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -------------------------
 # Project: Deep Q-Learning on Flappy Bird
 # Author: Flood Sung
@@ -10,6 +11,7 @@ sys.path.append("game/")
 import wrapped_flappy_bird as game
 from BrainDQN_Nature import BrainDQN
 import numpy as np
+import matplotlib.pyplot as plt
 
 # preprocess raw image to 80*80 gray image
 def preprocess(observation):
@@ -32,9 +34,15 @@ def playFlappyBird():
 	brain.setInitState(observation0)
 
 	# Step 3.2: run the game
-	while 1!= 0:
+	step = 0
+	while True:
+		step += 1
 		action = brain.getAction()
 		nextObservation,reward,terminal = flappyBird.frame_step(action)
+		#print action, reward, terminal
+		if terminal:
+			print step
+			step = 0
 		nextObservation = preprocess(nextObservation)
 		brain.setPerception(nextObservation,action,reward,terminal)
 
